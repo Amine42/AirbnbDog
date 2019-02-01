@@ -5,3 +5,28 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+require 'faker'
+
+Dogsitter.destroy_all
+Dog.destroy_all
+Stroll.destroy_all
+City.destroy_all
+
+
+20.times do 
+    ville = City.create!(name: Faker::Address.city)
+end
+
+18.times do
+ promeneur = Dogsitter.create!(first_name: Faker::Name.first_name,last_name: Faker::Name.last_name, city_id: rand((City.first.id)..(City.last.id)))
+end
+
+41.times do
+  chien = Dog.create!(race: Faker::Dog.breed,name: Faker::Dog.name, city_id: rand((City.first.id)..(City.last.id)))
+end
+
+89.times do
+ rdv = Stroll.create!(date: Faker::Time.between(2.days.ago, Date.today, :all), dog_id: rand((Dog.first.id)..(Dog.last.id)), dogsitter_id: rand((Dogsitter.first.id)..(Dogsitter.last.id)),city_id: rand((City.first.id)..(City.last.id)))
+end
+
+
